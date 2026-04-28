@@ -1,25 +1,27 @@
+const CONFIG = {
+    whatsappNumber: "351912345678", 
+    brandName: "Meu SPA | Íris Darc-Bênção",
+    iban: "PT50 0000 0000 0000 0000 0000 0",
+    mbway: "9XX XXX XXX"
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     const catalog = document.getElementById("catalog");
     
     if (typeof produtos === "undefined" || produtos.length === 0) {
-        catalog.innerHTML = "<div class='loader'>Nenhum produto encontrado. Aguardando extração do WhatsApp...</div>";
+        catalog.innerHTML = "<div class='loader'>Nenhum produto encontrado. Aguardando extração...</div>";
         return;
     }
 
-    catalog.innerHTML = ""; // Limpar loader
+    catalog.innerHTML = ""; 
 
     produtos.forEach((produto, index) => {
-        // Criar delay para animação em cascata
-        const animDelay = (index * 0.15) + "s";
+        const animDelay = (index * 0.1) + "s";
         
-        // Link pré-preenchido do WhatsApp (Pode ser alterado para o número real)
         const waText = encodeURIComponent(`Olá! Tenho interesse no produto: ${produto.nome}.`);
-        const waLink = `https://wa.me/?text=${waText}`;
+        const waLink = `https://wa.me/${CONFIG.whatsappNumber}?text=${waText}`;
 
-        // Tratar imagem: se extraída usa a da pasta local ou dados
-        const imgSrc = produto.imagem && produto.imagem.endsWith(".png") 
-                        ? `imagens/${produto.imagem}` 
-                        : "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop";
+        const imgSrc = `imagens/${produto.imagem}`;
 
         const card = document.createElement("div");
         card.className = "product-card fade-in";
@@ -27,10 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
         
         card.innerHTML = `
             <div class="img-container">
-                <img src="${imgSrc}" alt="${produto.nome}" onerror="this.src='https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop'">
+                <img src="${imgSrc}" alt="${produto.nome}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop'">
             </div>
             <div class="product-info">
-                <span class="product-category">ÍRIS DARC-BÊNÇÃO</span>
+                <span class="product-category">${CONFIG.brandName}</span>
                 <h3 class="product-name">${produto.nome}</h3>
                 <div class="product-footer">
                     <span class="product-price">${produto.preco}</span>
@@ -41,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         catalog.appendChild(card);
     });
-}
+});
 
 // Modal Logic
 const modal = document.getElementById("productModal");
@@ -51,9 +53,14 @@ function openModal(id) {
     const produto = produtos.find(p => p.id === id);
     const body = document.getElementById("modalBody");
     
+    const waText = encodeURIComponent(`Olá! Gostaria de encomendar o ${produto.nome}.`);
+    const waLink = `https://wa.me/${CONFIG.whatsappNumber}?text=${waText}`;
+    
     body.innerHTML = `
         <div class="modal-header">
-            <img src="imagens/${produto.imagem}" alt="${produto.nome}">
+            <div class="modal-img-container">
+                <img src="imagens/${produto.imagem}" alt="${produto.nome}">
+            </div>
             <h2>${produto.nome}</h2>
         </div>
         <div class="modal-info-section">
@@ -65,7 +72,7 @@ function openModal(id) {
             <p>${produto.instrucoes}</p>
         </div>
         <div class="modal-footer">
-            <a href="https://wa.me/351912345678?text=Olá! Gostaria de encomendar o ${produto.nome}" class="btn-buy">Encomendar via WhatsApp</a>
+            <a href="${waLink}" target="_blank" class="btn-buy">Encomendar via WhatsApp</a>
         </div>
     `;
     modal.style.display = "block";
@@ -82,4 +89,5 @@ window.onclick = (event) => {
         modal.style.display = "none";
         document.body.style.overflow = "auto";
     }
-});
+};
+

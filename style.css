@@ -1,16 +1,17 @@
 :root {
-    --bg-color: #fcfcfc;
-    --text-color: #1a3b1a; /* Verde Floresta Profundo */
-    --accent-gold: #c5a059; /* Ouro Satinado */
-    --accent-green: #345c34;
+    --bg-color: #f8f9f8;
+    --text-color: #0a2410; /* Verde Floresta Profundo (Etiqueta) */
+    --accent-gold: #b8860b; /* Ouro Velho */
+    --accent-green: #1b4d2e;
     --card-bg: #ffffff;
-    --border-color: #e5e5e5;
+    --border-color: #d1d1d1;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -18,7 +19,24 @@ body {
     color: var(--text-color);
     font-family: 'Outfit', sans-serif;
     line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
 }
+
+/* Background Blobs */
+.blob {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    background: rgba(10, 36, 16, 0.05); /* Soft Green */
+    filter: blur(80px);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.blob-1 { top: -100px; left: -100px; }
+.blob-2 { bottom: -100px; right: -100px; }
 
 h1, h2, h3 {
     font-family: 'Playfair Display', serif;
@@ -27,14 +45,16 @@ h1, h2, h3 {
 
 /* Header Garnier Style */
 .glass-header {
-    background: #ffffff;
-    border-bottom: 2px solid var(--text-color);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(26, 59, 26, 0.1);
     padding: 2rem;
     text-align: center;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
 }
 
 .glass-header h1 {
@@ -46,10 +66,23 @@ h1, h2, h3 {
 
 .glass-header p {
     color: var(--accent-gold);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     margin-top: 5px;
+}
+
+.brand-badge {
+    background: var(--text-color);
+    color: var(--accent-gold);
+    display: inline-block;
+    padding: 5px 15px;
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    border-radius: 50px;
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
 /* Layout */
@@ -241,18 +274,29 @@ main {
 
 .modal-header {
     background: #f9f9f9;
-    padding: 3rem 2rem;
+    padding: 2rem;
     text-align: center;
     border-bottom: 1px solid #eee;
 }
 
-.modal-header img {
-    max-width: 200px;
+.modal-img-container {
+    background: white;
+    padding: 1rem;
+    border-radius: 15px;
+    display: inline-block;
     margin-bottom: 1.5rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.modal-header img {
+    max-width: 180px;
+    height: auto;
+    display: block;
 }
 
 .modal-header h2 {
     color: var(--text-color);
+    font-size: 1.8rem;
 }
 
 .modal-info-section {
