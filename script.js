@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const imgSrc = `imagens/${produto.imagem}`;
 
         const card = document.createElement("div");
-        card.className = "product-card fade-in";
+        card.className = "product-card"; // A classe 'reveal' será adicionada pelo Observer
         card.style.animationDelay = animDelay;
         
         card.innerHTML = `
@@ -43,6 +43,24 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         catalog.appendChild(card);
     });
+
+    // Scroll Reveal Animation
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("reveal");
+            }
+        });
+    }, observerOptions);
+
+    // Observar os cards criados
+    document.querySelectorAll(".product-card").forEach(card => {
+        observer.observe(card);
+    });
 });
 
 // Modal Logic
@@ -50,6 +68,7 @@ const modal = document.getElementById("productModal");
 const closeModal = document.querySelector(".close-modal");
 
 function openModal(id) {
+    if (typeof produtos === "undefined") return;
     const produto = produtos.find(p => p.id === id);
     const body = document.getElementById("modalBody");
     
@@ -79,37 +98,18 @@ function openModal(id) {
     document.body.style.overflow = "hidden";
 }
 
-closeModal.onclick = () => {
-    modal.style.display = "none";
-    document.body.style.overflow = "auto";
-}
-
-    // Scroll Reveal Animation
-    const observerOptions = {
-        threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("reveal");
-            }
-        });
-    }, observerOptions);
-
-    setTimeout(() => {
-        document.querySelectorAll(".product-card").forEach(card => {
-            observer.observe(card);
-        });
-    }, 100);
-});
-
-// Close modal when clicking outside
-window.onclick = (event) => {
-    const modal = document.getElementById("productModal");
-    if (event.target == modal) {
+if (closeModal) {
+    closeModal.onclick = () => {
         modal.style.display = "none";
         document.body.style.overflow = "auto";
     }
-};
+}
 
+// Close modal when clicking outside
+window.onclick = (event) => {
+    const modalElement = document.getElementById("productModal");
+    if (event.target == modalElement) {
+        modalElement.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+};
