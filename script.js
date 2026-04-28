@@ -84,7 +84,29 @@ closeModal.onclick = () => {
     document.body.style.overflow = "auto";
 }
 
+    // Scroll Reveal Animation
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("reveal");
+            }
+        });
+    }, observerOptions);
+
+    setTimeout(() => {
+        document.querySelectorAll(".product-card").forEach(card => {
+            observer.observe(card);
+        });
+    }, 100);
+});
+
+// Close modal when clicking outside
 window.onclick = (event) => {
+    const modal = document.getElementById("productModal");
     if (event.target == modal) {
         modal.style.display = "none";
         document.body.style.overflow = "auto";
