@@ -351,6 +351,61 @@ footer {
     color: #999;
 }
 
+/* Responsive Design */
+@media (max-width: 992px) {
+    .glass-header h1 { font-size: 1.8rem; }
+    .products-grid { gap: 2rem; }
+    .payment-grid { gap: 2rem; }
+}
+
+@media (max-width: 768px) {
+    main { padding: 0 1.5rem; }
+    .glass-header { padding: 1.5rem; }
+    .glass-header h1 { font-size: 1.5rem; letter-spacing: 2px; }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .payment-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    
+    .payment-card {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .img-container {
+        height: 300px;
+    }
+    
+    .product-name {
+        font-size: 1.2rem;
+    }
+    
+    .info-bar {
+        font-size: 0.8rem;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    .modal-info-section {
+        padding: 1.5rem;
+    }
+}
+
 /* Animations */
 .fade-in {
     animation: fadeIn 1s ease forwards;
