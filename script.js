@@ -1,6 +1,6 @@
 const CONFIG = {
     whatsappNumber: "351912345678", 
-    brandName: "Meu SPA | Íris Darc-Bênção",
+    brandName: "Meuspa | Íris Darc-Bênção",
     iban: "PT50 0000 0000 0000 0000 0000 0",
     mbway: "9XX XXX XXX"
 };
