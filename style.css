@@ -251,12 +251,13 @@ main {
 
 .modal-content {
     background-color: white;
-    margin: 5% auto;
+    margin: 2rem auto;
     padding: 0;
-    width: 90%;
+    width: 95%;
     max-width: 600px;
+    max-height: 90vh; /* Limita a altura para caber no ecrã */
     border-radius: 20px;
-    overflow: hidden;
+    overflow-y: auto; /* Permite scroll interno */
     position: relative;
     box-shadow: 0 25px 50px rgba(0,0,0,0.5);
 }
